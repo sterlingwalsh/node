@@ -2,14 +2,23 @@
   "name": "node",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
+  "main": "routes.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sterlingwalsh/node.git"
   },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sterlingwalsh/node/issues"
+  },
+  "homepage": "https://github.com/sterlingwalsh/node#readme",
+  "dependencies": {},
   "devDependencies": {
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.19.1"
   }
 }

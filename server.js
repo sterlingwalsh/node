@@ -1,12 +1,8 @@
 const http = require('http');
+const routes = require('./routes');
 
-const server = http.createServer((request, response) => {
-    const user = {
-        name: 'John',
-        hobby: 'Skating'
-    }
-    response.setHeader('Content-Type', 'application/json');
-    response.end(JSON.stringify(user));
-});
+const localPort = 3000;
 
-server.listen(3000);
+const server = http.createServer(routes.requestHandler);
+
+server.listen(localPort);

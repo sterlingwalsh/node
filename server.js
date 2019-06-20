@@ -1,22 +1,29 @@
-const http = require('http');
+const http = require("http");
 
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
+const path = require("path");
 
-const adminRoutes = require('./routes/admin').router;
-const shopRoutes = require('./routes/shop').router;
+const { processDir } = require("./utils/path");
+
+const adminRoutes = require("./routes/admin").router;
+const shopRoutes = require("./routes/shop").router;
+const error404 = require("./routes/404error").router;
 
 const localPort = 3000;
 
 const app = express();
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static(path.join(processDir, "public")));
 
-app.use(adminRoutes);
+// app.use((req, res, next) => {
+//   console.log(req);
+//   next();
+// });
+
+app.use("/admin", adminRoutes);
 app.use(shopRoutes);
-
-app.use((req, res, next) => {
-    res.status(404).send('<h1>Page not found</h1>');
-});
+app.use(error404);
 
 app.listen(localPort);

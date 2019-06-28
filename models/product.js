@@ -24,7 +24,11 @@ class Product {
     return db.execute("SELECT * FROM product").then(result => result[0]);
   }
 
-  static async findById(id) {}
+  static async findById(id) {
+    return db
+      .execute("SELECT * FROM product WHERE id=?", [id])
+      .then(result => result[0][0]);
+  }
 }
 
 module.exports = {

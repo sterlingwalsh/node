@@ -1,29 +1,25 @@
-const http = require("http");
+const path = require("path");
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const path = require("path");
 
-const { processDir } = require("./utils/path");
-
-const adminRoutes = require("./routes/admin").router;
-const shopRoutes = require("./routes/shop").router;
-const error404 = require("./routes/404error").router;
-
-const localPort = 3000;
+const db = require("./util/database");
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(processDir, "public")));
+app.set("view engine", "ejs");
+app.set("views", "views");
 
-// app.use((req, res, next) => {
-//   console.log(req);
-//   next();
-// });
+const adminRoute = require("./routes/admin").router;
+const shopRoute = require("./routes/shop").router;
+const errorRoute = require("./routes/404error").router;
 
-app.use("/admin", adminRoutes);
-app.use(shopRoutes);
-app.use(error404);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.listen(localPort);
+app.use("/admin", adminRoute);
+app.use(shopRoute);
+
+app.use(errorRoute);
+
+app.listen(3000);
